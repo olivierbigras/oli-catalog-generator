@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Oli Catalog & Product PDF\n"
-"Report-Msgid-Bugs-To: https://github.com/bigrat95/oli-catalog-generator/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/olivierbigras/oli-catalog-generator/issues\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -671,7 +671,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: oli-catalog-generator.php
-msgid "https://github.com/bigrat95/oli-catalog-generator"
+msgid "https://github.com/olivierbigras/oli-catalog-generator"
 msgstr ""
 
 #. Author of the plugin
