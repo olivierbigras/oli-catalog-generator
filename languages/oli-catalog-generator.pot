@@ -23,7 +23,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: oli-catalog-generator.php
-msgid "https://github.com/bigrat95/oli-catalog-generator"
+msgid "https://github.com/olivierbigras/oli-catalog-generator"
 msgstr ""
 
 #. Description of the plugin

@@ -4,7 +4,7 @@ Tags: woocommerce, catalog, pdf, product sheet, acf
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.15.3
+Stable tag: 1.15.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,9 @@ The plugin does not collect personal data and does not send data to a third part
 
 == Changelog ==
 
+= 1.15.4 =
+* Maintenance: GitHub links updated to github.com/olivierbigras (account renamed from bigrat95). No functional change.
+
 = 1.15.3 =
 * Cover: information band (Market / Products boxes) off by default and turned off on upgrade; enable again under Cover & pages → Information band if needed
 
@@ -181,6 +184,9 @@ The plugin does not collect personal data and does not send data to a third part
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.15.4 =
+Maintenance release: GitHub links updated. No functional change.
 
 = 1.15.3 =
 Cover information band hidden by default (Market / Products row).
