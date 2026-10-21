@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Oli Catalog & Product PDF 1.15.1\n"
+"Project-Id-Version: Oli Catalog & Product PDF 1.15.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/oli-catalog-generator\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -768,15 +768,15 @@ msgid "Reset to defaults"
 msgstr ""
 
 #: includes/class-olicg-design.php:41
-msgid "Installed / system fonts only (nothing is loaded)"
+msgid "Installed / system fonts (recommended — nothing is loaded from another site)"
 msgstr ""
 
 #: includes/class-olicg-design.php:42
-msgid "Stylesheet URL — Adobe Fonts kit, self-hosted @font-face CSS, your theme’s font file…"
+msgid "Local stylesheet — self-hosted @font-face CSS or your theme’s font file. Adobe Fonts / Typekit only if you paste a kit URL"
 msgstr ""
 
 #: includes/class-olicg-design.php:43
-msgid "Google Fonts — loaded automatically from the font names"
+msgid "Google Fonts (optional) — the reader’s browser then connects to Google"
 msgstr ""
 
 #: includes/class-olicg-design.php:49
@@ -832,7 +832,7 @@ msgid "Catalogue page background"
 msgstr ""
 
 #: includes/class-olicg-design.php:223
-msgid "Match the catalogue and the product PDF sheet to your brand. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide)."
+msgid "Match the catalogue and the product PDF sheet to your brand. Prefer installed or self-hosted fonts. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide)."
 msgstr ""
 
 #: includes/class-olicg-design.php:231
@@ -864,7 +864,7 @@ msgid "Stylesheet URL"
 msgstr ""
 
 #: includes/class-olicg-design.php:256
-msgid "Privacy: with Google Fonts or an external stylesheet, the browser of whoever opens the catalogue or the product PDF sheet connects to that font service. Self-hosted fonts (your theme’s font file) avoid this."
+msgid "Local first: if your theme has assets/fonts/fonts-local.css it is used automatically. Google Fonts and Adobe Fonts / Typekit are optional — they send the reader’s browser to those services (see readme → External services)."
 msgstr ""
 
 #: includes/class-olicg-design.php:260

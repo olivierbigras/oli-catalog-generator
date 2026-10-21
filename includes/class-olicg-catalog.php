@@ -116,6 +116,27 @@ class OLICG_Catalog {
 		return '' !== $lang ? OLICG_I18n::translate_strings( array( $title ), $lang )[0] : $title;
 	}
 
+	/**
+	 * Late-escape a product name that may already contain a safe <a> from $olicg_name().
+	 *
+	 * @param string $html Escaped name or linked name.
+	 * @return string
+	 */
+	public static function kses_name( $html ) {
+		return wp_kses(
+			(string) $html,
+			array(
+				'a' => array(
+					'class'     => true,
+					'href'      => true,
+					'target'    => true,
+					'rel'       => true,
+					'draggable' => true,
+				),
+			)
+		);
+	}
+
 	public static function layouts() {
 		return array(
 			'compact' => __( 'Compact grid — small images, about 30–36 products per page', 'oli-catalog-generator' ),

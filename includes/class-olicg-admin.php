@@ -471,7 +471,7 @@ class OLICG_Admin {
 								</label>
 							<?php endforeach; ?>
 							<p class="description olicg-prices-meaning"><?php esc_html_e( 'Cost = dealer cost (Data sources). List = regular price. MAP = sale price. End-user = lowest of List and MAP.', 'oli-catalog-generator' ); ?></p>
-							<details class="olicg-price-labels"<?php echo $settings['price_labels'] ? ' open' : ''; ?>>
+							<details class="olicg-price-labels"<?php echo empty( $settings['price_labels'] ) ? '' : ' open'; ?>>
 								<summary><?php esc_html_e( 'Custom labels printed in the catalogue (optional)', 'oli-catalog-generator' ); ?></summary>
 								<?php foreach ( OLICG_Pricing::all_components() as $olicg_price_key => $olicg_price_label ) : ?>
 									<label class="olicg-price-label-row"><?php echo esc_html( $olicg_price_label ); ?>
@@ -597,7 +597,7 @@ class OLICG_Admin {
 										<td colspan="7"><strong><?php echo esc_html( $section ); ?></strong> <span class="count">(<?php echo esc_html( count( $section_rows ) ); ?>)</span></td>
 									</tr>
 									<?php foreach ( $section_rows as $row ) : ?>
-										<tr class="olicg-row<?php echo $row['included'] ? '' : ' is-excluded'; ?>" data-id="<?php echo esc_attr( $row['id'] ); ?>" data-search="<?php echo esc_attr( strtolower( $row['name'] . ' ' . $row['sku'] ) ); ?>">
+										<tr class="olicg-row<?php echo empty( $row['included'] ) ? ' is-excluded' : ''; ?>" data-id="<?php echo esc_attr( $row['id'] ); ?>" data-search="<?php echo esc_attr( strtolower( $row['name'] . ' ' . $row['sku'] ) ); ?>">
 											<td class="olicg-handle" title="<?php esc_attr_e( 'Drag to reorder', 'oli-catalog-generator' ); ?>">
 												<span aria-hidden="true">⋮⋮</span>
 												<input type="hidden" name="olicg_order[]" value="<?php echo esc_attr( $row['id'] ); ?>">
@@ -618,7 +618,15 @@ class OLICG_Admin {
 											</td>
 											<td><code><?php echo esc_html( $row['sku'] ); ?></code></td>
 											<?php foreach ( array( 'ca_retail', 'ca_dealer', 'us_retail', 'us_dealer' ) as $col ) : ?>
-												<td class="olicg-price"><?php echo $row[ $col ] ? esc_html( $row[ $col ] ) : '<span class="olicg-missing">—</span>'; ?></td>
+												<td class="olicg-price">
+													<?php
+													if ( $row[ $col ] ) {
+														echo esc_html( $row[ $col ] );
+													} else {
+														echo '<span class="olicg-missing">—</span>';
+													}
+													?>
+												</td>
 											<?php endforeach; ?>
 										</tr>
 									<?php endforeach; ?>
