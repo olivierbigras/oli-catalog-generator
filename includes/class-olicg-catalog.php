@@ -117,23 +117,19 @@ class OLICG_Catalog {
 	}
 
 	/**
-	 * Late-escape a product name that may already contain a safe <a> from $olicg_name().
+	 * Allowed tags in a product name that may already contain a safe <a>.
 	 *
-	 * @param string $html Escaped name or linked name.
-	 * @return string
+	 * @return array<string, array<string, bool>>
 	 */
-	public static function kses_name( $html ) {
-		return wp_kses(
-			(string) $html,
-			array(
-				'a' => array(
-					'class'     => true,
-					'href'      => true,
-					'target'    => true,
-					'rel'       => true,
-					'draggable' => true,
-				),
-			)
+	public static function name_allowed_html() {
+		return array(
+			'a' => array(
+				'class'     => true,
+				'href'      => true,
+				'target'    => true,
+				'rel'       => true,
+				'draggable' => true,
+			),
 		);
 	}
 

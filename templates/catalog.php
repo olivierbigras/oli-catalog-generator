@@ -232,12 +232,12 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 						<?php if ( $olicg_cover['show_logo'] && $logo_url ) : ?>
 							<img class="cover-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<?php elseif ( $olicg_cover['show_logo'] ) : ?>
-							<div class="cover-wordmark"><?php echo OLICG_Cover::kses( $olicg_cover_text( 'wordmark' ) ); ?></div>
+							<div class="cover-wordmark"><?php echo wp_kses( $olicg_cover_text( 'wordmark' ), OLICG_Cover::allowed_html() ); ?></div>
 						<?php endif; ?>
 					</div>
 					<?php if ( $olicg_cover['show_meta'] ) : ?>
 						<div class="cover-meta-top">
-							<?php echo OLICG_Cover::kses( implode( '<br>', array_filter( array( $olicg_cover_text( 'meta1' ), $olicg_cover_text( 'meta2' ) ), 'strlen' ) ) ); ?>
+							<?php echo wp_kses( implode( '<br>', array_filter( array( $olicg_cover_text( 'meta1' ), $olicg_cover_text( 'meta2' ) ), 'strlen' ) ), OLICG_Cover::allowed_html() ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -245,12 +245,12 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 
 			<div class="cover-main">
 				<?php if ( $olicg_cover['show_eyebrow'] && '' !== $olicg_cover_text( 'eyebrow' ) ) : ?>
-					<div class="eyebrow"><?php echo OLICG_Cover::kses( $olicg_cover_text( 'eyebrow' ) ); ?></div>
+					<div class="eyebrow"><?php echo wp_kses( $olicg_cover_text( 'eyebrow' ), OLICG_Cover::allowed_html() ); ?></div>
 				<?php endif; ?>
 				<h1 class="cover-title">
-					<?php echo OLICG_Cover::kses( $olicg_cover_text( 'title' ) ); ?>
+					<?php echo wp_kses( $olicg_cover_text( 'title' ), OLICG_Cover::allowed_html() ); ?>
 					<?php if ( '' !== $olicg_cover_text( 'subtitle' ) ) : ?>
-						<br><span class="cover-year"><?php echo OLICG_Cover::kses( $olicg_cover_text( 'subtitle' ) ); ?></span>
+						<br><span class="cover-year"><?php echo wp_kses( $olicg_cover_text( 'subtitle' ), OLICG_Cover::allowed_html() ); ?></span>
 					<?php endif; ?>
 				</h1>
 			</div>
@@ -258,12 +258,12 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 			<?php if ( $olicg_cover['show_band'] && $olicg_band ) : ?>
 				<div class="cover-band">
 					<?php foreach ( $olicg_band as $olicg_box ) : ?>
-						<div><div class="label"><?php echo OLICG_Cover::kses( $olicg_box[0] ); ?></div><div class="value"><?php echo OLICG_Cover::kses( $olicg_box[1] ); ?></div></div>
+						<div><div class="label"><?php echo wp_kses( $olicg_box[0], OLICG_Cover::allowed_html() ); ?></div><div class="value"><?php echo wp_kses( $olicg_box[1], OLICG_Cover::allowed_html() ); ?></div></div>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
 			<?php if ( $olicg_cover['show_note'] && '' !== $olicg_cover_text( 'note' ) ) : ?>
-				<div class="cover-note"><?php echo OLICG_Cover::kses( $olicg_cover_text( 'note' ) ); ?></div>
+				<div class="cover-note"><?php echo wp_kses( $olicg_cover_text( 'note' ), OLICG_Cover::allowed_html() ); ?></div>
 			<?php endif; ?>
 		</section>
 	<?php endif; ?>
@@ -325,7 +325,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 											<button type="button" class="card-remove" title="<?php esc_attr_e( 'Remove from catalogue', 'oli-catalog-generator' ); ?>" aria-label="<?php esc_attr_e( 'Remove from catalogue', 'oli-catalog-generator' ); ?>">×</button>
 										</span>
 									<?php endif; ?>
-									<?php echo 'name' === $olicg_key ? OLICG_Catalog::kses_name( $olicg_name( $olicg_item ) ) : esc_html( $olicg_item[ $olicg_key ] ); ?>
+									<?php echo 'name' === $olicg_key ? wp_kses( $olicg_name( $olicg_item ), OLICG_Catalog::name_allowed_html() ) : esc_html( $olicg_item[ $olicg_key ] ); ?>
 								</td>
 							<?php endforeach; ?>
 							<?php foreach ( $olicg_components as $olicg_key => $olicg_label ) : ?>
@@ -375,7 +375,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 							<?php if ( ! empty( $settings['show_brand'] ) && '' !== $olicg_item['brand'] ) : ?>
 								<div class="card-brand"><?php echo esc_html( $olicg_item['brand'] ); ?></div>
 							<?php endif; ?>
-							<h3 class="card-title"><?php echo OLICG_Catalog::kses_name( $olicg_name( $olicg_item ) ); ?></h3>
+							<h3 class="card-title"><?php echo wp_kses( $olicg_name( $olicg_item ), OLICG_Catalog::name_allowed_html() ); ?></h3>
 							<?php if ( ! empty( $settings['show_sku'] ) && '' !== $olicg_item['sku'] ) : ?>
 								<div class="card-sku"><?php echo esc_html( 'SKU ' . $olicg_item['sku'] ); ?></div>
 							<?php endif; ?>
@@ -412,7 +412,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 	<?php endforeach; ?>
 
 	<?php if ( $sections && $olicg_cover['closing_show'] && '' !== $olicg_cover_text( 'closing' ) ) : ?>
-		<div class="closing"><?php echo OLICG_Cover::kses( $olicg_cover_text( 'closing' ) ); ?></div>
+		<div class="closing"><?php echo wp_kses( $olicg_cover_text( 'closing' ), OLICG_Cover::allowed_html() ); ?></div>
 	<?php endif; ?>
 </main>
 

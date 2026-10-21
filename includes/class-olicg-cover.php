@@ -183,16 +183,6 @@ class OLICG_Cover {
 	}
 
 	/**
-	 * Late-escape cover HTML at echo time (fill() already escapes).
-	 *
-	 * @param string $html Cover HTML.
-	 * @return string
-	 */
-	public static function kses( $html ) {
-		return wp_kses( (string) $html, self::allowed_html() );
-	}
-
-	/**
 	 * Escaped HTML with {tokens} filled. {count} stays live (updated when products are removed).
 	 */
 	public static function fill( $text, array $values ) {
