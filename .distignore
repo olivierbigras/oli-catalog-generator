@@ -1,0 +1,19 @@
+# Keep development and packaging files out of the distributable ZIP.
+.github/
+tests/
+bin/
+scripts/
+node_modules/
+
+phpcs.xml*
+phpunit.xml*
+composer.json
+composer.lock
+package*.json
+
+.gitignore
+.distignore
+.gitattributes
+
+# Internal docs only. WordPress.org readme.txt is shipped.
+*.md
