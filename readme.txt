@@ -4,7 +4,7 @@ Tags: woocommerce, catalog, pdf, product sheet, acf
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.15.5
+Stable tag: 1.15.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,9 @@ A self-hosted `@font-face` CSS URL on your own site is not an external service. 
 
 == Changelog ==
 
+= 1.15.6 =
+* Packaging: exclude development files (tests/, bin/, scripts/, .github/, Composer/npm, PHPCS/PHPUnit, internal Markdown) from the distributable ZIP via .distignore and .gitattributes export-ignore. readme.txt is kept.
+
 = 1.15.5 =
 * Escape every echoed variable (Plugin Check late-escaping).
 * Document Google Fonts and Adobe Fonts / Typekit as optional external services; local / system fonts stay the recommended default.
@@ -212,6 +215,9 @@ A self-hosted `@font-face` CSS URL on your own site is not an external service. 
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.15.6 =
+Packaging only: development files are no longer included in the distributable ZIP. No functional change.
 
 = 1.15.5 =
 Late-escaping for Plugin Check; Google Fonts and Adobe Fonts / Typekit stay optional and are documented under External services.
