@@ -4,7 +4,7 @@ Tags: woocommerce, catalog, pdf, product sheet, acf
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.15.4
+Stable tag: 1.15.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,7 +40,7 @@ An optional **Download PDF** button gives visitors an A4 product sheet (logo, na
 
 = Design =
 
-* Fonts for headings, body, labels and the product sheet: installed / system fonts (default, nothing is loaded), a stylesheet URL (self-hosted `@font-face`, Adobe Fonts) or Google Fonts
+* Fonts for headings, body, labels and the product sheet: installed / system fonts (default, recommended — nothing is loaded), a local stylesheet (self-hosted `@font-face` or your theme’s font file), or optional Google Fonts / Adobe Fonts (Typekit)
 * Colours, italic headings, heading weight, uppercase labels, image background (blend, solid colour, none) and drop shadow
 * Custom CSS for the catalogue and the product sheet
 
@@ -61,7 +61,7 @@ An optional **Download PDF** button gives visitors an A4 product sheet (logo, na
 * Nothing runs on the front end unless the Product PDF button is enabled; its small script and stylesheet load only on pages that show the button (no jQuery)
 * Admin assets load only on the plugin's screen; the catalogue uses one cached stylesheet and script
 * No custom database tables: four options, not autoloaded
-* No external service, no tracking; HPOS compatible
+* No external service by default (Google Fonts and Adobe Fonts / Typekit are opt-in); no tracking; HPOS compatible
 
 == Installation ==
 
@@ -93,9 +93,9 @@ Click **Print / Save as PDF** on the catalogue, then choose **Save as PDF** in C
 
 Yes. Click **Save & download spreadsheet (CSV)**, or a **CSV** button next to each edition. The file lists the category, product, SKU, UPC, brand, the chosen prices, stock status and product link, in the catalogue's order. Developers can change the columns with the `olicg_csv_header` and `olicg_csv_row` filters.
 
-= Does it load Google Fonts? =
+= Does it load Google Fonts or Adobe Fonts (Typekit)? =
 
-Only if you choose Google Fonts in the Design tab. By default the catalogue and the product sheet use installed / system fonts and nothing is loaded from another site.
+Only if you choose them in the Design tab. By default the catalogue and the product sheet use installed / system fonts (and your theme’s local `@font-face` file when present). Nothing is loaded from another site unless you opt in. See **External services**.
 
 = Is it compatible with HPOS? =
 
@@ -111,9 +111,37 @@ The plugin is written in English and fully translatable (text domain `oli-catalo
 
 == Privacy ==
 
-The plugin does not collect personal data and does not send data to a third party. If you choose Google Fonts or an external font stylesheet in the Design tab, the browser of whoever opens a catalogue or a product sheet connects to that font service.
+The plugin does not collect personal data and does not send data to a third party by default. If you choose Google Fonts or paste an Adobe Fonts / Typekit (or other external) stylesheet URL in the Design tab, the browser of whoever opens a catalogue or a product sheet connects to that font service. See **External services** below.
+
+== External services ==
+
+This plugin does not contact any external service unless you opt in under **WooCommerce → Catalog & Product PDF → Design → Load fonts from**. New installs use installed / system fonts. When present, the active theme’s `assets/fonts/fonts-local.css` is loaded from your site (filter: `olicg_fonts_css_file`).
+
+= Google Fonts (optional) =
+
+If you select **Google Fonts**, the browser of whoever opens a catalogue or a product sheet loads the font families you named from Google Fonts.
+
+* When: only after you choose Google Fonts and save Design.
+* Data sent: the font family names and standard browser request data (IP address, User-Agent) to fonts.googleapis.com and fonts.gstatic.com.
+* Terms of use: https://developers.google.com/fonts/faq
+* Privacy policy: https://policies.google.com/privacy and https://developers.google.com/fonts/faq/privacy
+
+= Adobe Fonts / Typekit (optional) =
+
+If you select **Local stylesheet** and paste an Adobe Fonts (Typekit) kit URL, the same browsers load that stylesheet and the kit’s font files from Adobe.
+
+* When: only after you paste a kit URL (for example a `use.typekit.net` stylesheet) and save Design.
+* Data sent: the kit ID in the URL and standard browser request data to Adobe Fonts (use.typekit.net / use.typekit.com).
+* Terms of use: https://www.adobe.com/legal/terms.html
+* Privacy policy: https://www.adobe.com/privacy.html
+
+A self-hosted `@font-face` CSS URL on your own site is not an external service. Opening a downloaded CSV in Google Sheets, Excel or Numbers is your choice and is not a call from the plugin.
 
 == Changelog ==
+
+= 1.15.5 =
+* Escape every echoed variable (Plugin Check late-escaping).
+* Document Google Fonts and Adobe Fonts / Typekit as optional external services; local / system fonts stay the recommended default.
 
 = 1.15.4 =
 * Maintenance: GitHub links updated to github.com/olivierbigras (account renamed from bigrat95). No functional change.
@@ -184,6 +212,9 @@ The plugin does not collect personal data and does not send data to a third part
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.15.5 =
+Late-escaping for Plugin Check; Google Fonts and Adobe Fonts / Typekit stay optional and are documented under External services.
 
 = 1.15.4 =
 Maintenance release: GitHub links updated. No functional change.

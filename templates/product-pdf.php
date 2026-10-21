@@ -108,7 +108,11 @@ $olicg_pdf_btext = $olicg_pdf_d['color_band_text'];
 				</td>
 				<td style="text-align: right; vertical-align: middle; width: 50%;">
 					<div style="font-size: 11px; color: <?php echo esc_attr( $olicg_pdf_btext ); ?>; font-weight: 500;" class="notranslate" translate="no" data-no-translation><?php echo esc_html( wp_parse_url( home_url(), PHP_URL_HOST ) ); ?></div>
-					<div style="font-size: 9px; color: <?php echo esc_attr( $olicg_pdf_btext ); ?>; opacity: .65; margin-top: 3px;">©<?php echo esc_html( wp_date( 'Y' ) ); ?><?php echo $settings['disclaimer'] ? ' - ' . esc_html( $settings['disclaimer'] ) : ''; ?></div>
+					<div style="font-size: 9px; color: <?php echo esc_attr( $olicg_pdf_btext ); ?>; opacity: .65; margin-top: 3px;">©<?php echo esc_html( wp_date( 'Y' ) ); ?><?php
+					if ( $settings['disclaimer'] ) {
+						echo ' - ' . esc_html( $settings['disclaimer'] );
+					}
+					?></div>
 				</td>
 			</tr>
 		</table>

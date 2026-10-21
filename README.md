@@ -27,7 +27,7 @@ Build print-ready WooCommerce product catalogues (e.g. an accessories catalogue)
 
 **WooCommerce → Catalog & Product PDF → Design** controls the look of both the catalogue and the product PDF sheet:
 
-- Fonts for headings, body, labels & prices, and the product PDF sheet: installed/system fonts (default — nothing is loaded), a stylesheet URL (Adobe Fonts kit, self-hosted `@font-face` CSS…), or Google Fonts by name (opt-in; the reader's browser then connects to Google).
+- Fonts for headings, body, labels & prices, and the product PDF sheet: installed/system fonts (default, recommended — nothing is loaded from another site), a local stylesheet (self-hosted `@font-face` or your theme’s `assets/fonts/fonts-local.css`), or optional Google Fonts / Adobe Fonts (Typekit) if you choose them. Those services are documented in `readme.txt` → External services.
 - Italic headings on/off, heading weight, uppercase labels on/off.
 - Colours: text, secondary text, borders, image background, prices, cover band / PDF footer bar and its text, catalogue page background.
 - Product images: **Blend** (the photo melts into the image background colour — best for photos on white), **Solid colour** behind the image (best for transparent PNGs) or **No background**, plus an optional soft or strong drop shadow.
@@ -123,4 +123,4 @@ In the print dialog: **Margins: Default**, **Headers and footers: off**, **Backg
 
 ## Author
 
-[Olivier Bigras](https://olivierbigras.com) (bigrat95). Licensed under the GPLv2 or later. See `readme.txt` for the WordPress.org description and changelog.
+[Olivier Bigras](https://olivierbigras.com). Licensed under the GPLv2 or later. See `readme.txt` for the WordPress.org description, changelog and External services.

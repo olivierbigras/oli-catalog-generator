@@ -224,16 +224,16 @@ msgid "Large cards — big images, 9 products per page"
 msgstr "Grandes cartes — grandes images, 9 produits par page"
 
 #: includes/class-olicg-design.php:43
-msgid "Google Fonts — loaded automatically from the font names"
-msgstr "Google Fonts — chargées automatiquement à partir des noms de polices"
+msgid "Google Fonts (optional) — the reader’s browser then connects to Google"
+msgstr "Google Fonts (facultatif) — le navigateur du lecteur se connecte alors à Google"
 
 #: includes/class-olicg-design.php:42
-msgid "Stylesheet URL — Adobe Fonts kit, self-hosted @font-face CSS, your theme’s font file…"
-msgstr "URL de feuille de style — trousse Adobe Fonts, CSS @font-face auto-hébergé, fichier de polices de votre thème…"
+msgid "Local stylesheet — self-hosted @font-face CSS or your theme’s font file. Adobe Fonts / Typekit only if you paste a kit URL"
+msgstr "Feuille de style locale — CSS @font-face auto-hébergé ou fichier de polices de votre thème. Adobe Fonts / Typekit seulement si vous collez l’URL d’une trousse"
 
 #: includes/class-olicg-design.php:41
-msgid "Installed / system fonts only (nothing is loaded)"
-msgstr "Polices installées / système seulement (rien n’est chargé)"
+msgid "Installed / system fonts (recommended — nothing is loaded from another site)"
+msgstr "Polices installées / système (recommandé — rien n’est chargé depuis un autre site)"
 
 #: includes/class-olicg-design.php:49
 msgid "Blend — the image melts into the background colour (best for photos on white)"
@@ -289,8 +289,8 @@ msgid "Cover band & PDF footer text"
 msgstr "Texte du bandeau de couverture et du pied de page PDF"
 
 #: includes/class-olicg-design.php:223
-msgid "Match the catalogue and the product PDF sheet to your brand. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide)."
-msgstr "Adaptez le catalogue et la fiche produit PDF à votre marque. Utilisez les noms exacts des polices de votre site (Apparence → Personnaliser / Éditeur de site, ou le guide de style de votre thème)."
+msgid "Match the catalogue and the product PDF sheet to your brand. Prefer installed or self-hosted fonts. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide)."
+msgstr "Adaptez le catalogue et la fiche produit PDF à votre marque. Privilégiez les polices installées ou auto-hébergées. Utilisez les noms exacts des polices de votre site (Apparence → Personnaliser / Éditeur de site, ou le guide de style de votre thème)."
 
 #: includes/class-olicg-design.php:231
 msgid "Fonts"
@@ -1143,8 +1143,8 @@ msgid "Stylesheet URL"
 msgstr "URL de la feuille de style"
 
 #: includes/class-olicg-design.php:256
-msgid "Privacy: with Google Fonts or an external stylesheet, the browser of whoever opens the catalogue or the product PDF sheet connects to that font service. Self-hosted fonts (your theme’s font file) avoid this."
-msgstr "Confidentialité : avec Google Fonts ou une feuille de style externe, le navigateur de la personne qui ouvre le catalogue ou la fiche produit PDF se connecte à ce service de polices. Les polices hébergées sur votre site (le fichier de polices de votre thème) évitent cela."
+msgid "Local first: if your theme has assets/fonts/fonts-local.css it is used automatically. Google Fonts and Adobe Fonts / Typekit are optional — they send the reader’s browser to those services (see readme → External services)."
+msgstr "Polices locales d’abord : si votre thème a assets/fonts/fonts-local.css, il est utilisé automatiquement. Google Fonts et Adobe Fonts / Typekit sont facultatifs — ils envoient le navigateur du lecteur vers ces services (voir readme → External services)."
 
 #: oli-catalog-generator.php:99
 msgid "Settings"

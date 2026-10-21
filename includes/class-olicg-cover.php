@@ -171,6 +171,18 @@ class OLICG_Cover {
 	}
 
 	/**
+	 * Allowed tags in cover HTML produced by fill() (already escaped text + <br> / <span>).
+	 *
+	 * @return array<string, array<string, bool>>
+	 */
+	public static function allowed_html() {
+		return array(
+			'br'   => array(),
+			'span' => array( 'class' => true ),
+		);
+	}
+
+	/**
 	 * Escaped HTML with {tokens} filled. {count} stays live (updated when products are removed).
 	 */
 	public static function fill( $text, array $values ) {
@@ -321,7 +333,7 @@ class OLICG_Cover {
 				<button type="button" class="button olicg-media-pick"><?php esc_html_e( 'Choose image', 'oli-catalog-generator' ); ?></button>
 				<button type="button" class="button-link olicg-media-clear"><?php esc_html_e( 'Remove', 'oli-catalog-generator' ); ?></button>
 			</div>
-			<img class="olicg-media-preview" src="<?php echo esc_url( $value ); ?>" alt=""<?php echo $value ? '' : ' hidden'; ?>>
+			<img class="olicg-media-preview" src="<?php echo esc_url( $value ); ?>" alt=""<?php echo '' === (string) $value ? ' hidden' : ''; ?>>
 			<?php if ( $description ) : ?>
 				<p class="description"><?php echo esc_html( $description ); ?></p>
 			<?php endif; ?>

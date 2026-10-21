@@ -38,9 +38,9 @@ class OLICG_Design {
 
 	public static function font_sources() {
 		return array(
-			'system' => __( 'Installed / system fonts only (nothing is loaded)', 'oli-catalog-generator' ),
-			'url'    => __( 'Stylesheet URL — Adobe Fonts kit, self-hosted @font-face CSS, your theme’s font file…', 'oli-catalog-generator' ),
-			'google' => __( 'Google Fonts — loaded automatically from the font names', 'oli-catalog-generator' ),
+			'system' => __( 'Installed / system fonts (recommended — nothing is loaded from another site)', 'oli-catalog-generator' ),
+			'url'    => __( 'Local stylesheet — self-hosted @font-face CSS or your theme’s font file. Adobe Fonts / Typekit only if you paste a kit URL', 'oli-catalog-generator' ),
+			'google' => __( 'Google Fonts (optional) — the reader’s browser then connects to Google', 'oli-catalog-generator' ),
 		);
 	}
 
@@ -109,7 +109,8 @@ class OLICG_Design {
 		$d = $d ? $d : self::get_settings();
 
 		if ( 'url' === $d['font_source'] ) {
-			return $d['font_css_url'] ? array( $d['font_css_url'] ) : array();
+			$url = esc_url_raw( (string) $d['font_css_url'] );
+			return $url ? array( $url ) : array();
 		}
 		if ( 'google' !== $d['font_source'] ) {
 			return array();
@@ -122,6 +123,7 @@ class OLICG_Design {
 				$families[ strtolower( $family ) ] = str_replace( ' ', '+', $family ) . ':300,400,400i,500,500i,600,600i,700,700i';
 			}
 		}
+		// Opt-in only: built when Design → Load fonts from is “Google Fonts”.
 		// The v1 API skips weights a family doesn't have; css2 rejects the whole request.
 		return $families ? array( 'https://fonts.googleapis.com/css?family=' . implode( '|', $families ) . '&display=swap' ) : array();
 	}
@@ -220,7 +222,7 @@ class OLICG_Design {
 	public static function render_settings() {
 		$d = self::get_settings();
 		?>
-		<p class="olicg-intro"><?php esc_html_e( 'Match the catalogue and the product PDF sheet to your brand. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide).', 'oli-catalog-generator' ); ?></p>
+		<p class="olicg-intro"><?php esc_html_e( 'Match the catalogue and the product PDF sheet to your brand. Prefer installed or self-hosted fonts. Use the exact font names from your site (Appearance → Customize / Site Editor, or your theme’s style guide).', 'oli-catalog-generator' ); ?></p>
 
 		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 			<input type="hidden" name="action" value="olicg_save_design">
@@ -252,8 +254,8 @@ class OLICG_Design {
 						<?php foreach ( self::font_sources() as $key => $label ) : ?>
 							<label><input type="radio" name="olicg_font_source" value="<?php echo esc_attr( $key ); ?>" <?php checked( $d['font_source'], $key ); ?>> <?php echo esc_html( $label ); ?></label>
 						<?php endforeach; ?>
-						<input type="url" name="olicg_font_css_url" class="large-text" value="<?php echo esc_attr( $d['font_css_url'] ); ?>" placeholder="https://use.typekit.net/xxxxxxx.css" aria-label="<?php esc_attr_e( 'Stylesheet URL', 'oli-catalog-generator' ); ?>">
-						<p class="description"><?php esc_html_e( 'Privacy: with Google Fonts or an external stylesheet, the browser of whoever opens the catalogue or the product PDF sheet connects to that font service. Self-hosted fonts (your theme’s font file) avoid this.', 'oli-catalog-generator' ); ?></p>
+						<input type="url" name="olicg_font_css_url" class="large-text" value="<?php echo esc_attr( $d['font_css_url'] ); ?>" placeholder="<?php echo esc_attr( home_url( '/wp-content/themes/your-theme/assets/fonts/fonts-local.css' ) ); ?>" aria-label="<?php esc_attr_e( 'Stylesheet URL', 'oli-catalog-generator' ); ?>">
+						<p class="description"><?php esc_html_e( 'Local first: if your theme has assets/fonts/fonts-local.css it is used automatically. Google Fonts and Adobe Fonts / Typekit are optional — they send the reader’s browser to those services (see readme → External services).', 'oli-catalog-generator' ); ?></p>
 					</fieldset>
 
 					<fieldset class="olicg-choice">

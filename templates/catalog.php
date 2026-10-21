@@ -125,7 +125,11 @@ $olicg_image_box = static function ( array $olicg_item ) use ( $settings, $olicg
 	$zoomed = 1.0 !== $fit['s'] || $fit['x'] || $fit['y'];
 	?>
 	<div class="card-img" data-s="<?php echo esc_attr( sprintf( '%.3F', $fit['s'] ) ); ?>" data-x="<?php echo esc_attr( sprintf( '%.2F', $fit['x'] ) ); ?>" data-y="<?php echo esc_attr( sprintf( '%.2F', $fit['y'] ) ); ?>">
-		<img src="<?php echo esc_url( $olicg_item['image'] ); ?>" alt="<?php echo esc_attr( $olicg_item['name'] ); ?>" draggable="false"<?php echo $zoomed ? ' style="' . esc_attr( sprintf( 'transform: translate(%.2F%%, %.2F%%) scale(%.3F);', $fit['x'], $fit['y'], $fit['s'] ) ) . '"' : ''; ?>>
+		<img src="<?php echo esc_url( $olicg_item['image'] ); ?>" alt="<?php echo esc_attr( $olicg_item['name'] ); ?>" draggable="false"<?php
+		if ( $zoomed ) {
+			echo ' style="' . esc_attr( sprintf( 'transform: translate(%.2F%%, %.2F%%) scale(%.3F);', $fit['x'], $fit['y'], $fit['s'] ) ) . '"';
+		}
+		?>>
 		<span class="img-zoom" title="<?php esc_attr_e( 'Drag to zoom the image · double-click the image to reset', 'oli-catalog-generator' ); ?>" aria-hidden="true"></span>
 	</div>
 	<?php
@@ -221,19 +225,19 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 			<img src="<?php echo esc_url( $olicg_cover['image_url'] ); ?>" alt="<?php echo esc_attr( $settings['title'] ); ?>">
 		</section>
 	<?php elseif ( 'design' === $olicg_cover_mode ) : ?>
-		<section class="cover<?php echo OLICG_Cover::is_bleed( $olicg_cover ) ? ' cover-bleed' : ''; ?><?php echo $olicg_cover['bg_image_url'] ? ' has-bg-image' : ''; ?>">
+		<section class="cover<?php echo OLICG_Cover::is_bleed( $olicg_cover ) ? ' cover-bleed' : ''; ?><?php echo empty( $olicg_cover['bg_image_url'] ) ? '' : ' has-bg-image'; ?>">
 			<?php if ( $olicg_cover['show_logo'] || $olicg_cover['show_meta'] ) : ?>
 				<div class="cover-top">
 					<div>
 						<?php if ( $olicg_cover['show_logo'] && $logo_url ) : ?>
 							<img class="cover-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 						<?php elseif ( $olicg_cover['show_logo'] ) : ?>
-							<div class="cover-wordmark"><?php echo $olicg_cover_text( 'wordmark' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div>
+							<div class="cover-wordmark"><?php echo wp_kses( $olicg_cover_text( 'wordmark' ), OLICG_Cover::allowed_html() ); ?></div>
 						<?php endif; ?>
 					</div>
 					<?php if ( $olicg_cover['show_meta'] ) : ?>
 						<div class="cover-meta-top">
-							<?php echo implode( '<br>', array_filter( array( $olicg_cover_text( 'meta1' ), $olicg_cover_text( 'meta2' ) ), 'strlen' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?>
+							<?php echo wp_kses( implode( '<br>', array_filter( array( $olicg_cover_text( 'meta1' ), $olicg_cover_text( 'meta2' ) ), 'strlen' ) ), OLICG_Cover::allowed_html() ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -241,12 +245,12 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 
 			<div class="cover-main">
 				<?php if ( $olicg_cover['show_eyebrow'] && '' !== $olicg_cover_text( 'eyebrow' ) ) : ?>
-					<div class="eyebrow"><?php echo $olicg_cover_text( 'eyebrow' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div>
+					<div class="eyebrow"><?php echo wp_kses( $olicg_cover_text( 'eyebrow' ), OLICG_Cover::allowed_html() ); ?></div>
 				<?php endif; ?>
 				<h1 class="cover-title">
-					<?php echo $olicg_cover_text( 'title' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?>
+					<?php echo wp_kses( $olicg_cover_text( 'title' ), OLICG_Cover::allowed_html() ); ?>
 					<?php if ( '' !== $olicg_cover_text( 'subtitle' ) ) : ?>
-						<br><span class="cover-year"><?php echo $olicg_cover_text( 'subtitle' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></span>
+						<br><span class="cover-year"><?php echo wp_kses( $olicg_cover_text( 'subtitle' ), OLICG_Cover::allowed_html() ); ?></span>
 					<?php endif; ?>
 				</h1>
 			</div>
@@ -254,12 +258,12 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 			<?php if ( $olicg_cover['show_band'] && $olicg_band ) : ?>
 				<div class="cover-band">
 					<?php foreach ( $olicg_band as $olicg_box ) : ?>
-						<div><div class="label"><?php echo $olicg_box[0]; // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div><div class="value"><?php echo $olicg_box[1]; // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div></div>
+						<div><div class="label"><?php echo wp_kses( $olicg_box[0], OLICG_Cover::allowed_html() ); ?></div><div class="value"><?php echo wp_kses( $olicg_box[1], OLICG_Cover::allowed_html() ); ?></div></div>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
 			<?php if ( $olicg_cover['show_note'] && '' !== $olicg_cover_text( 'note' ) ) : ?>
-				<div class="cover-note"><?php echo $olicg_cover_text( 'note' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div>
+				<div class="cover-note"><?php echo wp_kses( $olicg_cover_text( 'note' ), OLICG_Cover::allowed_html() ); ?></div>
 			<?php endif; ?>
 		</section>
 	<?php endif; ?>
@@ -310,7 +314,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 				</thead>
 				<tbody class="rows">
 					<?php foreach ( $olicg_section['items'] as $olicg_item ) : ?>
-						<tr class="row<?php echo $olicg_item['picture'] ? '' : ' no-pic'; ?>" draggable="true" data-id="<?php echo esc_attr( $olicg_item['id'] ); ?>">
+						<tr class="row<?php echo empty( $olicg_item['picture'] ) ? ' no-pic' : ''; ?>" draggable="true" data-id="<?php echo esc_attr( $olicg_item['id'] ); ?>">
 							<?php foreach ( $olicg_cols as $olicg_key => $olicg_label ) : ?>
 								<td class="c-<?php echo esc_attr( $olicg_key ); ?>">
 									<?php if ( 'name' === $olicg_key ) : ?>
@@ -321,11 +325,11 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 											<button type="button" class="card-remove" title="<?php esc_attr_e( 'Remove from catalogue', 'oli-catalog-generator' ); ?>" aria-label="<?php esc_attr_e( 'Remove from catalogue', 'oli-catalog-generator' ); ?>">×</button>
 										</span>
 									<?php endif; ?>
-									<?php echo 'name' === $olicg_key ? $olicg_name( $olicg_item ) : esc_html( $olicg_item[ $olicg_key ] ); // phpcs:ignore WordPress.Security.EscapeOutput -- $olicg_name() escapes. ?>
+									<?php echo 'name' === $olicg_key ? wp_kses( $olicg_name( $olicg_item ), OLICG_Catalog::name_allowed_html() ) : esc_html( $olicg_item[ $olicg_key ] ); ?>
 								</td>
 							<?php endforeach; ?>
 							<?php foreach ( $olicg_components as $olicg_key => $olicg_label ) : ?>
-								<td class="c-price"><?php echo $olicg_item['prices'][ $olicg_key ] ? esc_html( OLICG_Pricing::format( $olicg_item['prices'][ $olicg_key ], $region, false ) ) : '—'; ?></td>
+								<td class="c-price"><?php echo esc_html( ! empty( $olicg_item['prices'][ $olicg_key ] ) ? OLICG_Pricing::format( $olicg_item['prices'][ $olicg_key ], $region, false ) : '—' ); ?></td>
 							<?php endforeach; ?>
 						</tr>
 					<?php endforeach; ?>
@@ -340,7 +344,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 				<div class="pics">
 					<?php foreach ( $olicg_section['items'] as $olicg_item ) : ?>
 						<?php if ( $olicg_item['has_img'] ) : ?>
-							<figure class="pic" draggable="true" data-id="<?php echo esc_attr( $olicg_item['id'] ); ?>"<?php echo $olicg_item['picture'] ? '' : ' hidden'; ?>>
+							<figure class="pic" draggable="true" data-id="<?php echo esc_attr( $olicg_item['id'] ); ?>"<?php echo empty( $olicg_item['picture'] ) ? ' hidden' : ''; ?>>
 								<button type="button" class="pic-remove" title="<?php esc_attr_e( 'Hide this picture', 'oli-catalog-generator' ); ?>" aria-label="<?php esc_attr_e( 'Hide this picture', 'oli-catalog-generator' ); ?>">×</button>
 								<?php $olicg_image_box( $olicg_item ); ?>
 								<figcaption><?php echo esc_html( '' !== $olicg_item['sku'] ? $olicg_item['sku'] : $olicg_item['name'] ); ?></figcaption>
@@ -371,7 +375,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 							<?php if ( ! empty( $settings['show_brand'] ) && '' !== $olicg_item['brand'] ) : ?>
 								<div class="card-brand"><?php echo esc_html( $olicg_item['brand'] ); ?></div>
 							<?php endif; ?>
-							<h3 class="card-title"><?php echo $olicg_name( $olicg_item ); // phpcs:ignore WordPress.Security.EscapeOutput -- $olicg_name() escapes. ?></h3>
+							<h3 class="card-title"><?php echo wp_kses( $olicg_name( $olicg_item ), OLICG_Catalog::name_allowed_html() ); ?></h3>
 							<?php if ( ! empty( $settings['show_sku'] ) && '' !== $olicg_item['sku'] ) : ?>
 								<div class="card-sku"><?php echo esc_html( 'SKU ' . $olicg_item['sku'] ); ?></div>
 							<?php endif; ?>
@@ -384,7 +388,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 									<?php foreach ( $olicg_components as $olicg_key => $olicg_label ) : ?>
 										<div class="price-row">
 											<span class="lbl"><?php echo esc_html( $olicg_label ); ?></span>
-											<span class="amt"><?php echo $olicg_item['prices'][ $olicg_key ] ? esc_html( OLICG_Pricing::format( $olicg_item['prices'][ $olicg_key ], $region ) ) : '—'; ?></span>
+											<span class="amt"><?php echo esc_html( ! empty( $olicg_item['prices'][ $olicg_key ] ) ? OLICG_Pricing::format( $olicg_item['prices'][ $olicg_key ], $region ) : '—' ); ?></span>
 										</div>
 									<?php endforeach; ?>
 								</div>
@@ -408,7 +412,7 @@ if ( ! empty( $settings['section_new_page'] ) ) {
 	<?php endforeach; ?>
 
 	<?php if ( $sections && $olicg_cover['closing_show'] && '' !== $olicg_cover_text( 'closing' ) ) : ?>
-		<div class="closing"><?php echo $olicg_cover_text( 'closing' ); // phpcs:ignore WordPress.Security.EscapeOutput -- OLICG_Cover::fill() escapes. ?></div>
+		<div class="closing"><?php echo wp_kses( $olicg_cover_text( 'closing' ), OLICG_Cover::allowed_html() ); ?></div>
 	<?php endif; ?>
 </main>
 
